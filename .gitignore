@@ -1,0 +1,31 @@
+# 機密情報
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+*.secret
+
+# 認証情報
+credentials.json
+token.json
+*_credentials.json
+
+# ローカル設定（個人環境固有）
+.local/
+.cache/
+.claude/settings.local.json
+.claude/tmp/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# エディタ
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc

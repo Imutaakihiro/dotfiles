@@ -1,0 +1,39 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+
+    // 開発用2ペインレイアウト: NeoVim + Claude Code
+    // Claude Code は direnv の環境変数を引き継いで起動する
+    pane_template name="dev-layout" {
+        pane split_direction="vertical" {
+            pane size="65%" name="Vim" command="nvim"
+            pane size="35%" name="Claude Code" command="zsh" {
+                args "-c" "eval \"$(direnv export zsh 2>/dev/null)\" && exec claude"
+                focus true
+            }
+        }
+    }
+
+    tab name="Zettelkasten" cwd="~/repos/zettelkasten" {
+        dev-layout
+    }
+    tab name="Marp" cwd="~/repos/marp" {
+        dev-layout
+    }
+    tab name="dotfiles" cwd="~/dotfiles" {
+        dev-layout
+    }
+    tab name="Polaris" cwd="~/repos/polaris" {
+        dev-layout
+    }
+    tab name="_blank" {
+        pane cwd="~"
+    }
+}
