@@ -1,0 +1,94 @@
+# gswitch - gcloud configuration + ADC を一括切り替え
+# source で読み込む関数ファイル
+
+gswitch() {
+  local config_name="$1"
+  local gcloud_dir="$HOME/.config/gcloud"
+  local adc_file="$gcloud_dir/application_default_credentials.json"
+
+  # 引数なし: 一覧表示 + fzf で選択
+  if [ -z "$config_name" ]; then
+    if command -v fzf >/dev/null 2>&1; then
+      config_name=$(gcloud config configurations list --format='value(name)' 2>/dev/null | fzf --prompt="gcloud config> ")
+      [ -z "$config_name" ] && return 0
+    else
+      echo "使い方: gswitch <configuration名>"
+      echo ""
+      gcloud config configurations list
+      return 1
+    fi
+  fi
+
+  # configuration を activate
+  if ! gcloud config configurations activate "$config_name" --quiet 2>/dev/null; then
+    echo "エラー: configuration '$config_name' が見つかりません"
+    echo ""
+    echo "利用可能な configurations:"
+    gcloud config configurations list --format='value(name)' 2>/dev/null
+    return 1
+  fi
+
+  # ADC ファイルを切り替え
+  local saved_adc="$gcloud_dir/adc-${config_name}.json"
+  if [ -f "$saved_adc" ]; then
+    cp "$saved_adc" "$adc_file"
+    echo "ADC を切り替えました: $config_name"
+  else
+    echo ""
+    echo "⚠ ADC ファイルがありません: $saved_adc"
+    echo "  以下を実行して ADC を保存してください:"
+    echo "  gcloud auth application-default login && cp $adc_file $saved_adc"
+  fi
+
+  # 現在の設定を表示
+  echo ""
+  echo "現在の設定:"
+  echo "  account: $(gcloud config get account 2>/dev/null)"
+  echo "  project: $(gcloud config get project 2>/dev/null)"
+}
+
+# gswitch-setup - 新しい configuration を作成するヘルパー
+gswitch-setup() {
+  local config_name="$1"
+  local account="$2"
+  local project="$3"
+  local gcloud_dir="$HOME/.config/gcloud"
+  local adc_file="$gcloud_dir/application_default_credentials.json"
+
+  if [ -z "$config_name" ] || [ -z "$account" ] || [ -z "$project" ]; then
+    echo "使い方: gswitch-setup <configuration名> <account> <project>"
+    echo ""
+    echo "例: gswitch-setup work user@company.com my-project-123"
+    return 1
+  fi
+
+  echo "=== configuration '$config_name' を作成します ==="
+  echo "  account: $account"
+  echo "  project: $project"
+  echo ""
+
+  # configuration 作成
+  gcloud config configurations create "$config_name" 2>/dev/null || true
+  gcloud config configurations activate "$config_name"
+  gcloud config set account "$account"
+  gcloud config set project "$project"
+
+  # 認証（ブラウザが開く）
+  echo ""
+  echo "--- gcloud CLI 認証 ---"
+  gcloud auth login "$account"
+
+  echo ""
+  echo "--- ADC 認証 ---"
+  gcloud auth application-default login
+
+  # ADC ファイルを保存
+  if [ -f "$adc_file" ]; then
+    cp "$adc_file" "$gcloud_dir/adc-${config_name}.json"
+    echo ""
+    echo "ADC を保存しました: adc-${config_name}.json"
+  fi
+
+  echo ""
+  echo "セットアップ完了！ 'gswitch $config_name' で切り替えできます。"
+}

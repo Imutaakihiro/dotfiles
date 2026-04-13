@@ -71,6 +71,11 @@ fi
 # ==================================================
 # 設定ファイル（シンボリックリンク）
 # ==================================================
+# bin/（ヘルパースクリプト）
+mkdir -p ~/.local/bin
+ln -sf "$DOTFILES_DIR/bin/gdev" ~/.local/bin/gdev
+ln -sf "$DOTFILES_DIR/bin/gswitch" ~/.local/bin/gswitch
+
 ln -sf "$DOTFILES_DIR/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES_DIR/.zprofile" ~/.zprofile
 ln -sf "$DOTFILES_DIR/.zshrc" ~/.zshrc

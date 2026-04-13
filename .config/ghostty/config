@@ -85,8 +85,17 @@ fullscreen = non-native
 # Shift+Enter で ESC+CR を送信（Neovim で使用）
 keybind = shift+enter=text:\x1b\r
 
+# コピー時のフォーマットをプレーンテキストに固定
+keybind = super+c=copy_to_clipboard:plain
+
 # Cmd+` でどこからでも Ghostty を呼び出す（QuickTerminal）
 keybind = global:super+grave_accent=toggle_quick_terminal
+
+# Cmd+h/j/k/l でペイン間を移動（Neovim の Ctrl+h/j/k/l と競合しないよう Cmd を使用）
+keybind = super+h=goto_split:left
+keybind = super+l=goto_split:right
+keybind = super+k=goto_split:top
+keybind = super+j=goto_split:bottom
 
 # macOS で Option キーを Alt として使う
 macos-option-as-alt = left
