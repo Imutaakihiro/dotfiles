@@ -4,7 +4,7 @@ return {
   opts = {
     default_im_select = "com.apple.keylayout.ABC",
     default_command = "macism",
-    set_default_events = { "InsertLeave", "FocusGained" },
+    set_default_events = { "InsertLeave", "CmdlineLeave", "FocusGained" },
     set_previous_events = {},
   },
 }

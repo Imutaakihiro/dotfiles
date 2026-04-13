@@ -1,26 +1,27 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize Mason
+-- Mason: LSP サーバー・フォーマッター・リンターを自動インストール
 
 ---@type LazySpec
 return {
-  -- use mason-tool-installer for automatically installing Mason packages
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    -- overrides `require("mason-tool-installer").setup(...)`
     opts = {
-      -- Make sure to use the names found in `:Mason`
       ensure_installed = {
-        -- install language servers
-        "lua-language-server",
+        -- === LSP サーバー ===
+        "gopls",                    -- Go
+        "typescript-language-server", -- TypeScript / JavaScript
+        "pyright",                  -- Python
+        "lua-language-server",      -- Lua（Neovim 設定ファイル用）
+        "css-lsp",                  -- CSS
+        "html-lsp",                 -- HTML
 
-        -- install formatters
-        "stylua",
+        -- === フォーマッター ===
+        "stylua",                   -- Lua フォーマッター
+        "prettierd",                -- TypeScript / JavaScript / CSS / HTML
 
-        -- install debuggers
-        "debugpy",
+        -- === リンター ===
+        "eslint_d",                 -- TypeScript / JavaScript
 
-        -- install any other package
+        -- === その他 ===
         "tree-sitter-cli",
       },
     },

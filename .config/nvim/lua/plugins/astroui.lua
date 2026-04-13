@@ -12,8 +12,7 @@ return {
     colorscheme = "github_dark_default",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
-      init = { -- this table overrides highlights in all themes
-        -- 背景を透明化（Ghosttyのぼかし効果を透過させる）
+      init = { -- 全テーマ共通：背景を透明化（Ghostty のぼかし効果を透過させる）
         Normal = { bg = "NONE" },
         NormalNC = { bg = "NONE" },
         NormalFloat = { bg = "NONE" },
@@ -30,9 +29,6 @@ return {
         NeoTreeNormalNC = { bg = "NONE" },
         NeoTreeEndOfBuffer = { bg = "NONE" },
         NeoTreeWinSeparator = { bg = "NONE" },
-      },
-      astrodark = { -- a table of overrides/changes when applying the astrotheme theme
-        -- Normal = { bg = "#000000" },
       },
     },
     -- Icons can be configured throughout the interface

@@ -1,6 +1,10 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "permissions": {
     "allow": [
+      "Edit",
       "Bash(brew --prefix:*)",
       "Bash(brew --version:*)",
       "Bash(brew config:*)",
@@ -13,7 +17,9 @@
       "Bash(brew search:*)",
       "Bash(brew services list:*)",
       "Bash(cd:*)",
+      "Bash(date:*)",
       "Bash(echo:*)",
+      "Bash(fd:*)",
       "Bash(gh api:*)",
       "Bash(gh issue list:*)",
       "Bash(gh issue view:*)",
@@ -42,10 +48,20 @@
       "Bash(git status:*)",
       "Bash(git switch:*)",
       "Bash(ls:*)",
+      "Bash(mise:*)",
+      "Bash(node:*)",
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm install:*)",
+      "Bash(npx:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
       "Bash(pwd:*)",
+      "Bash(trash:*)",
       "Bash(tree:*)",
       "Bash(TZ=Asia/Tokyo date:*)",
       "Bash(bash ~/.claude/skills/grok-search/scripts/search.sh:*)",
+      "Bash(uv:*)",
       "Bash(wc:*)",
       "Bash(which:*)",
       "Read",
@@ -54,17 +70,20 @@
     ],
     "deny": [
       "Bash(rm *)",
-      "Bash(rmdir *)"
+      "Bash(rmdir *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)"
     ]
   },
+  "enabledMcpjsonServers": [
+    "obsidian"
+  ],
   "hooks": {
     "Stop": [
       {
         "hooks": [
-          {
-            "type": "command",
-            "command": "open -a Ghostty"
-          },
           {
             "type": "command",
             "command": "afplay ~/.claude/sounds/complete.wav"
@@ -77,10 +96,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "open -a Ghostty"
-          },
-          {
-            "type": "command",
             "command": "afplay ~/.claude/sounds/confirm.wav"
           }
         ]
@@ -90,5 +105,6 @@
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh"
-  }
+  },
+  "voiceEnabled": true
 }

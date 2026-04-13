@@ -1,3 +1,26 @@
 [user]
 	name = imutaakihiro
 	email = imutaakihiro@gmail.com
+
+[core]
+	editor = nvim
+	autocrlf = input
+	excludesfile = ~/.config/git/ignore
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = current
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	algorithm = histogram
+
+[help]
+	autocorrect = 0

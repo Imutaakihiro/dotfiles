@@ -21,16 +21,19 @@ layout {
         }
     }
 
-    tab name="Zettelkasten" cwd="~/repos/zettelkasten" {
+    tab name="Obsidian" cwd="/Users/imutaakihiro/Projects/ObsidianImus" {
         dev-layout
     }
-    tab name="Marp" cwd="~/repos/marp" {
+    tab name="Discord自動化" cwd="/Users/imutaakihiro/Projects/Discord自動化" {
+        dev-layout
+    }
+    tab name="Kindle自動化" cwd="/Users/imutaakihiro/Projects/Kindle 自動スクショアプリ" {
         dev-layout
     }
     tab name="dotfiles" cwd="~/dotfiles" {
         dev-layout
     }
-    tab name="Polaris" cwd="~/repos/polaris" {
+    tab name="Downloads" cwd="~" {
         dev-layout
     }
     tab name="_blank" {

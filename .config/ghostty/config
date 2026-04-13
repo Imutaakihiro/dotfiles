@@ -22,21 +22,19 @@ window-padding-balance = true
 # ウィンドウの装飾テーマ
 window-theme = ghostty
 
+# 非アクティブなペインを暗くして視覚的に区別
+unfocused-split-opacity = 0.4
+
 
 # ==================================================
 # 背景
 # ==================================================
 
-# 不透明度（0.0〜1.0）
-background-opacity = 1
+# 不透明度（0.0〜1.0）※0.9 にすることでぼかし効果が透けて見える
+background-opacity = 0.9
 
 # ぼかし半径（ピクセル）
 background-blur-radius = 20
-
-# 背景画像
-background-image = bg.jpg
-background-image-opacity = 0.07
-background-image-fit = cover
 
 
 # ==================================================
@@ -76,16 +74,19 @@ macos-titlebar-style = transparent
 # フルスクリーン
 # ==================================================
 
-# 起動時にフルスクリーン
-fullscreen = true
+# non-native: 背景透過・ぼかし効果を有効にするために必要
+fullscreen = non-native
 
 
 # ==================================================
 # キーバインド
 # ==================================================
 
-# Shift+Enter で ESC+CR を送信
+# Shift+Enter で ESC+CR を送信（Neovim で使用）
 keybind = shift+enter=text:\x1b\r
 
-# macOSでOptionキーをAltとして使う（Zellijのキーバインドに必要）
+# Cmd+` でどこからでも Ghostty を呼び出す（QuickTerminal）
+keybind = global:super+grave_accent=toggle_quick_terminal
+
+# macOS で Option キーを Alt として使う
 macos-option-as-alt = left

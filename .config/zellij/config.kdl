@@ -1,19 +1,23 @@
 // ==================================================
-// テーマ設定
+// テーマ設定 (Deep Navy — 深紺統一)
+// 設計思想:
+//   - 深紺 bg: 集中力・論理思考を高める。目に優しく長時間作業向き。
+//   - アクセントはすべてブルー〜ラベンダー系で統一。グリーン・シアン系は不使用。
+//   - 高コントラスト fg で視認性を確保。
 // ==================================================
 themes {
     custom {
-        fg "#d4d4d4"
-        bg "#1e1e1e"
-        black "#1e1e1e"
-        red "#f44747"
-        green "#9ece6a"
-        yellow "#e0af68"
-        blue "#7aa2f7"
-        magenta "#bb9af7"
-        cyan "#7dcfff"
-        white "#d4d4d4"
-        orange "#bb9af7"
+        fg "#d0dcff"
+        bg "#060912"
+        black "#060912"
+        red "#ff7a95"
+        green "#7ab0ff"
+        yellow "#93c5fd"
+        blue "#60a5fa"
+        magenta "#c084fc"
+        cyan "#818cf8"
+        white "#d0dcff"
+        orange "#93c5fd"
     }
 }
 

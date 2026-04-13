@@ -8,13 +8,52 @@ return {
   opts = {
     options = {
       opt = {
-        wrap = true, -- 折り返しを有効化
-        linebreak = true, -- 単語の途中で折り返さない
+        wrap = true,        -- 折り返しを有効化
+        linebreak = true,   -- 単語の途中で折り返さない
         breakindent = true, -- 折り返し行もインデントを維持
-        cursorline = true, -- カーソルラインを有効化
+        cursorline = true,  -- カーソルラインを有効化
+        swapfile = false,   -- スワップファイルを無効化（Git + undofile で十分）
+      },
+    },
+    mappings = {
+      n = {
+        -- Tab でバッファを移動（ブラウザのタブ操作と同じ感覚）
+        ["<Tab>"] = { "<cmd>bnext<cr>", desc = "Next buffer" },
+        ["<S-Tab>"] = { "<cmd>bprevious<cr>", desc = "Previous buffer" },
       },
     },
     autocmds = {
+      -- 外部ツール（Claude Code など）がファイルを変更したら自動リロード
+      auto_reload = {
+        {
+          event = { "FocusGained", "BufEnter", "CursorHold" },
+          command = "silent! checktime",
+        },
+        {
+          event = "FileChangedShell",
+          callback = function() vim.v.fcs_choice = "reload" end,
+        },
+      },
+      -- ファイルを開いた時に空の [No Name] バッファを削除
+      cleanup_noname = {
+        {
+          event = "BufReadPost",
+          callback = function()
+            vim.schedule(function()
+              for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                if vim.api.nvim_buf_is_valid(buf)
+                  and vim.api.nvim_buf_get_name(buf) == ""
+                  and vim.bo[buf].buftype == ""
+                  and vim.api.nvim_buf_line_count(buf) <= 1
+                  and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
+                then
+                  pcall(vim.api.nvim_buf_delete, buf, {})
+                end
+              end
+            end)
+          end,
+        },
+      },
       -- アクティブウィンドウのみカーソルラインを表示
       active_window_cursorline = {
         {
