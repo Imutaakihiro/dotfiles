@@ -93,23 +93,33 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # F1、F2などを標準のファンクションキーとして使用
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
+# PlistBuddy ヘルパー関数
+# 新しい Mac ではキーが存在しない場合があるため、Set が失敗したら Add にフォールバック
+plist_set_bool() {
+  local key="$1"
+  local value="$2"
+  local plist=~/Library/Preferences/com.apple.symbolichotkeys.plist
+  /usr/libexec/PlistBuddy -c "Set ${key} ${value}" "$plist" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add ${key} bool ${value}" "$plist"
+}
+
 # Raycast 等の他ランチャーに割り当てるため、デフォルトのショートカットキーを無効にする
 # Command+Space
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:64:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:64:enabled" false
 # Command+Option+Space
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:65:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:65:enabled" false
 
 # CleanShot X を使うため、デフォルトのスクリーンショットショートカットを無効にする
 # Cmd+Shift+3: 画面のピクチャをファイルとして保存
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:28:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:28:enabled" false
 # Cmd+Ctrl+Shift+3: 画面のピクチャをクリップボードにコピー
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:29:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:29:enabled" false
 # Cmd+Shift+4: 選択部分のピクチャをファイルとして保存
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:30:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:30:enabled" false
 # Cmd+Ctrl+Shift+4: 選択部分のピクチャをクリップボードにコピー
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:31:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:31:enabled" false
 # Cmd+Shift+5: スクリーンショットと収録のオプション
-/usr/libexec/PlistBuddy -c "Set :AppleSymbolicHotKeys:184:enabled false" ~/Library/Preferences/com.apple.symbolichotkeys.plist
+plist_set_bool ":AppleSymbolicHotKeys:184:enabled" false
 
 # ==================================================
 # Text Input
